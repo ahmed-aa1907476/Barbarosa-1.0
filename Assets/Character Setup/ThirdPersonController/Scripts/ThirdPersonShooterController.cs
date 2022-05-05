@@ -18,6 +18,8 @@ public class ThirdPersonShooterController : MonoBehaviour
     public float bulletSpeed = 10;
     [SerializeField] private Transform VfxHitShoot;
 
+    [SerializeField] private Transform muzzleFxPosition;
+    [SerializeField] private Transform muzzleFx;
     private RaycastHit hit;
    // [SerializeField] private Transform spawnBulletPosition;
     
@@ -77,14 +79,14 @@ public class ThirdPersonShooterController : MonoBehaviour
         if (starterAssetsInputs.shoot) {
             if (ammo > 0)
             { 
+                Instantiate(muzzleFx, muzzleFxPosition.position, Quaternion.identity );
                 
                 if(hitTransform != null){
-                   Debug.Log("Rayhit msg " +hitTransform.transform.name);
+                   Debug.Log("Rayhit msg " + hitTransform.transform.name);
                     EnemyHealth enemy = hitTransform.transform.GetComponent<EnemyHealth>();
                     if(enemy != null )
                      enemy.takeDamage(20);
-
-                    //Instantiate(VfxHitShoot, transform.position, Quaternion.identity);
+                    Instantiate(VfxHitShoot, hitTransform.position, Quaternion.identity);
                 }
                // Vector3 aimDirection = (mouseWorldPosition - spawnBulletPosition.position).normalized;
                 //var bullet1 = Instantiate(bullet, spawnBulletPosition.position, Quaternion.LookRotation(aimDirection, Vector3.up));
